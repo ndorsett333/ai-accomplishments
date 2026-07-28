@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Accomplishments for Humanity</title>
+<meta name="description" content="Fifteen things AI has already done for people, with the paper, regulator, or announcement attached so you can check every one yourself.">
+<meta name="color-scheme" content="light">
+<meta property="og:title" content="AI Accomplishments for Humanity">
+<meta property="og:description" content="Fifteen things AI has already done for people. Every claim has a source.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23403529'/><rect x='18' y='40' width='64' height='9' rx='4.5' fill='%23F8C540'/><rect x='18' y='55' width='44' height='9' rx='4.5' fill='%23F27D3C'/></svg>">
+
+<style>
+/* ============================================================
+   Palette + tokens — sampled straight off the design board
+   ============================================================ */
+:root{
+  --espresso:#403529;
+  --espresso-2:#524437;
+  --espresso-3:#332A20;
+  --cream:#F0E2C9;
+  --cream-2:#F7EEDF;
+  --blue:#93C2D2;
+  --blue-2:#A9D0DD;
+  --yellow:#F8C540;
+  --orange:#F2A93B;
+  --tangerine:#F27D3C;
+  --red:#F24A43;
+
+  --ink:var(--espresso);
+  --radius-xl:34px;
+  --radius-lg:24px;
+  --radius-md:16px;
+  --radius-pill:999px;
+
+  --shell:1480px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+
+/* ============================================================
+   Reset
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body,h1,h2,h3,h4,p,ul,ol,li,figure,blockquote{margin:0;padding:0}
+ul,ol{list-style:none}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:var(--blue);
+  color:var(--ink);
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* Paper grain, sits above everything, catches no clicks */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  pointer-events:none;
+  opacity:.4;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+}
+
+::selection{background:var(--yellow);color:var(--espresso)}
+
+:focus-visible{
+  outline:3px solid var(--tangerine);
+  outline-offset:3px;
+  border-radius:4px;
+}
+
+/* ============================================================
+   Type
+   ============================================================ */
+.display{
+  font-family:"Archivo","Arial Black",system-ui,sans-serif;
+  font-weight:800;
+  font-variation-settings:"wdth" 112;
+  text-transform:uppercase;
+  line-height:.92;
+  letter-spacing:-.015em;
+}
+.mono-label{
+  font-family:"Archivo",system-ui,sans-serif;
+  font-weight:700;
+  font-variation-settings:"wdth" 88;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:.68rem;
+}
+
+/* ============================================================
+   Layout shell — the framed card from the board
+   ============================================================ */
+.shell{
+  max-width:var(--shell);
+  margin:0 auto;
+  padding:clamp(14px,2.4vw,34px);
+}
+.card-surface{
+  background:var(--espresso);
+  border-radius:var(--radius-xl);
+  overflow:hidden;
+}
+
+/* ============================================================
+   Scroll reveal.
+   Declared up here on purpose: components below re-declare their
+   own `transition` (they need it for hover), and the later rule
+   wins. So each of those includes opacity/translate in its own
+   transition list. Reveal uses `translate`, not `transform`, so it
+   never fights with a hover lift.
+   ============================================================ */
+.reveal{
+  opacity:0;
+  translate:0 26px;
+  transition:opacity .75s var(--ease-out),translate .75s var(--ease-out);
+}
+.reveal.in{opacity:1;translate:none}
+
+/* Scroll progress — the colour ramp, drawn as you go */
+.progress{
+  position:fixed;
+  top:0;left:0;
+  height:5px;
+  width:100%;
+  transform:scaleX(0);
+  transform-origin:0 50%;
+  background:linear-gradient(90deg,var(--yellow),var(--orange),var(--tangerine),var(--red));
+  z-index:100;
+}
+
+/* Skip link */
+.skip{
+  position:absolute;
+  left:-9999px;
+  top:12px;
+  background:var(--yellow);
+  color:var(--espresso);
+  padding:12px 20px;
+  border-radius:var(--radius-pill);
+  font-weight:600;
+  z-index:200;
+}
+.skip:focus{left:20px}
+
+/* ============================================================
+   Masthead
+   ============================================================ */
+.masthead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:clamp(20px,2.6vw,34px) clamp(20px,3vw,44px);
+  flex-wrap:wrap;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  color:var(--cream);
+  text-decoration:none;
+}
+.brand-mark{
+  width:46px;height:46px;
+  border-radius:13px;
+  background:var(--cream);
+  display:grid;
+  place-content:center;
+  gap:4px;
+  flex:0 0 auto;
+}
+.brand-mark span{
+  display:block;
+  height:4px;
+  border-radius:2px;
+  background:var(--espresso);
+}
+.brand-mark span:nth-child(1){width:24px}
+.brand-mark span:nth-child(2){width:18px}
+.brand-mark span:nth-child(3){width:22px}
+.brand-name{
+  font-family:"Archivo",sans-serif;
+  font-weight:800;
+  font-variation-settings:"wdth" 100;
+  text-transform:uppercase;
+  font-size:.95rem;
+  letter-spacing:.03em;
+  line-height:1.15;
+}
+.brand-name em{
+  display:block;
+  font-style:normal;
+  font-weight:500;
+  font-size:.7rem;
+  letter-spacing:.14em;
+  opacity:.6;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:var(--orange);
+  color:var(--espresso);
+  font-weight:600;
+  font-size:.85rem;
+  padding:11px 20px;
+  border-radius:var(--radius-md);
+}
+/* Little equalizer, because the board is a radio brand */
+.eq{display:flex;align-items:flex-end;gap:2.5px;height:14px}
+.eq i{
+  display:block;
+  width:3px;
+  background:var(--espresso);
+  border-radius:2px;
+  animation:eq 1.1s ease-in-out infinite;
+}
+.eq i:nth-child(1){height:6px;animation-delay:0s}
+.eq i:nth-child(2){height:13px;animation-delay:.18s}
+.eq i:nth-child(3){height:9px;animation-delay:.36s}
+.eq i:nth-child(4){height:14px;animation-delay:.1s}
+@keyframes eq{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+
+.dial{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:var(--cream);
+}
+.dial-lines{
+  text-align:right;
+  font-size:.66rem;
+  line-height:1.5;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  opacity:.72;
+}
+.dial-num{
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  font-size:.58rem;
+  letter-spacing:.14em;
+  padding:0 5px;
+  border-left:1px solid rgba(240,226,201,.32);
+  border-right:1px solid rgba(240,226,201,.32);
+  opacity:.72;
+}
+.dial-tag{
+  font-family:"Archivo",sans-serif;
+  font-weight:800;
+  font-variation-settings:"wdth" 100;
+  font-size:1.5rem;
+  letter-spacing:-.01em;
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  position:relative;
+}
+.hero-copy{
+  padding:clamp(24px,3vw,40px) clamp(20px,3vw,44px) clamp(34px,4vw,52px);
+  position:relative;
+  z-index:2;
+}
+/* Ghost letter, like the big translucent A on the board */
+.hero-ghost{
+  position:absolute;
+  left:-.06em;
+  bottom:-.32em;
+  font-family:"Archivo",sans-serif;
+  font-weight:800;
+  font-variation-settings:"wdth" 125;
+  font-size:min(30rem,42vw);
+  line-height:1;
+  color:var(--cream);
+  opacity:.045;
+  pointer-events:none;
+  user-select:none;
+  z-index:1;
+}
+.hero h1{
+  color:var(--cream);
+  font-size:clamp(2.1rem,6.2vw,5.2rem);
+}
+/* Each line is its own clipping window for the rise-in, so it must
+   not wrap — a wrapped line would get chopped by the overflow. */
+.hero h1 .line{
+  display:block;
+  overflow:hidden;
+  white-space:nowrap;
+}
+.hero h1 .line > span{
+  display:block;
+  transform:translateY(105%);
+  animation:riseIn .95s var(--ease-out) forwards;
+}
+.hero h1 .line:nth-child(1) > span{animation-delay:.15s}
+.hero h1 .line:nth-child(2) > span{animation-delay:.28s}
+@keyframes riseIn{to{transform:translateY(0)}}
+
+.hero-sub{
+  display:flex;
+  align-items:flex-start;
+  gap:20px;
+  margin-top:clamp(24px,3vw,36px);
+  max-width:520px;
+  opacity:0;
+  animation:fadeUp .8s var(--ease-out) .55s forwards;
+}
+.hero-sub .rule{
+  flex:0 0 46px;
+  height:3px;
+  background:var(--cream);
+  margin-top:14px;
+  opacity:.55;
+}
+.hero-sub p{
+  color:var(--cream);
+  opacity:.86;
+  font-size:1.02rem;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:clamp(26px,3vw,34px);
+  opacity:0;
+  animation:fadeUp .8s var(--ease-out) .68s forwards;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:14px 26px;
+  border-radius:var(--radius-pill);
+  font-weight:600;
+  font-size:.94rem;
+  text-decoration:none;
+  transition:transform .3s var(--ease),background .3s var(--ease),color .3s var(--ease);
+}
+.btn-primary{background:var(--yellow);color:var(--espresso)}
+.btn-primary:hover{background:var(--tangerine);transform:translateY(-3px)}
+.btn-ghost{
+  color:var(--cream);
+  border:1.5px solid rgba(240,226,201,.35);
+}
+.btn-ghost:hover{background:rgba(240,226,201,.1);transform:translateY(-3px)}
+.btn .arrow{transition:transform .3s var(--ease)}
+.btn:hover .arrow{transform:translateX(4px)}
+
+.hero-media{
+  position:relative;
+  min-height:380px;
+  background:var(--espresso-3);
+  overflow:hidden;
+}
+.hero-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  position:absolute;
+  inset:0;
+  transform:scale(1.14);
+  opacity:0;
+  animation:heroImg 1.6s var(--ease-out) .1s forwards;
+}
+@keyframes heroImg{to{opacity:1;transform:scale(1)}}
+.hero-media::after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(105deg,rgba(64,53,41,.72) 0%,rgba(64,53,41,.12) 42%,transparent 70%);
+}
+.hero-caption{
+  position:absolute;
+  left:22px;bottom:20px;
+  z-index:2;
+  color:var(--cream);
+  background:rgba(51,42,32,.62);
+  backdrop-filter:blur(6px);
+  padding:8px 15px;
+  border-radius:var(--radius-pill);
+  font-size:.7rem;
+  letter-spacing:.05em;
+}
+
+/* Stats */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid rgba(240,226,201,.16);
+  background:var(--espresso);
+  position:relative;
+  z-index:2;
+}
+.stat{
+  padding:clamp(22px,2.6vw,30px) clamp(18px,2.4vw,32px);
+  border-right:1px solid rgba(240,226,201,.16);
+}
+.stat:last-child{border-right:0}
+.stat-num{
+  font-family:"Archivo",sans-serif;
+  font-weight:800;
+  font-variation-settings:"wdth" 108;
+  font-size:clamp(2rem,3.6vw,3rem);
+  line-height:1;
+  letter-spacing:-.02em;
+}
+.stat:nth-child(1) .stat-num{color:var(--yellow)}
+.stat:nth-child(2) .stat-num{color:var(--orange)}
+.stat:nth-child(3) .stat-num{color:var(--tangerine)}
+.stat:nth-child(4) .stat-num{color:var(--red)}
+.stat p{
+  color:var(--cream);
+  opacity:.66;
+  font-size:.84rem;
+  margin-top:10px;
+  line-height:1.45;
+}
+
+/* ============================================================
+   Sections
+   ============================================================ */
+.section{
+  margin-top:clamp(14px,2.4vw,26px);
+  border-radius:var(--radius-xl);
+  padding:clamp(30px,4vw,62px) clamp(20px,3vw,52px);
+}
+.section-cream{background:var(--cream);color:var(--espresso)}
+
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:26px;
+  flex-wrap:wrap;
+  margin-bottom:clamp(26px,3vw,42px);
+}
+.section-head h2{
+  font-size:clamp(2rem,4.6vw,3.6rem);
+  max-width:16ch;
+}
+.kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:16px;
+  opacity:.62;
+}
+.kicker::before{
+  content:"";
+  width:26px;height:2px;
+  background:currentColor;
+}
+.section-head p{
+  max-width:40ch;
+  opacity:.72;
+  font-size:.98rem;
+}
+
+/* Filters */
+.filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-bottom:clamp(24px,3vw,34px);
+}
+.chip{
+  padding:9px 19px;
+  border-radius:var(--radius-pill);
+  border:1.5px solid rgba(64,53,41,.22);
+  font-size:.86rem;
+  font-weight:500;
+  transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease),transform .25s var(--ease);
+}
+.chip:hover{border-color:rgba(64,53,41,.5);transform:translateY(-2px)}
+.chip[aria-pressed="true"]{
+  background:var(--espresso);
+  color:var(--cream);
+  border-color:var(--espresso);
+}
+.chip .count{opacity:.5;margin-left:6px;font-size:.78rem}
+
+/* ============================================================
+   Cards
+   ============================================================ */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
+  gap:clamp(14px,1.6vw,20px);
+  align-items:start; /* let cards hug their content instead of stretching */
+}
+.card{
+  background:var(--espresso);
+  color:var(--cream);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),
+             opacity .3s var(--ease),translate .75s var(--ease-out);
+}
+.card::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:5px;
+  background:var(--accent);
+  transform:scaleX(0);
+  transform-origin:0 50%;
+  transition:transform .5s var(--ease-out);
+  z-index:3;
+}
+.card:hover{
+  transform:translateY(-7px);
+  box-shadow:0 22px 40px -18px rgba(51,42,32,.55);
+}
+.card:hover::before{transform:scaleX(1)}
+
+.card-photo{
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:var(--espresso-3);
+}
+.card-photo img{
+  width:100%;height:100%;
+  object-fit:cover;
+  opacity:.86;
+  transition:transform .8s var(--ease-out),opacity .5s var(--ease);
+}
+.card:hover .card-photo img{transform:scale(1.06);opacity:1}
+
+.card-body{
+  padding:24px 24px 22px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+.card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:16px;
+}
+.card-num{
+  font-family:"Archivo",sans-serif;
+  font-weight:800;
+  font-variation-settings:"wdth" 100;
+  font-size:.78rem;
+  background:var(--accent);
+  color:var(--espresso);
+  width:34px;height:34px;
+  border-radius:10px;
+  display:grid;
+  place-content:center;
+  flex:0 0 auto;
+}
+.tag{
+  font-family:"Archivo",sans-serif;
+  font-weight:700;
+  font-variation-settings:"wdth" 88;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:.6rem;
+  padding:6px 12px;
+  border-radius:var(--radius-pill);
+  border:1px solid rgba(240,226,201,.28);
+  opacity:.8;
+}
+.card h3{
+  font-family:"Archivo",sans-serif;
+  font-weight:700;
+  font-variation-settings:"wdth" 100;
+  font-size:1.24rem;
+  line-height:1.2;
+  letter-spacing:-.01em;
+  margin-bottom:12px;
+}
+.card p{
+  font-size:.93rem;
+  line-height:1.62;
+  opacity:.74;
+  flex:1;
+}
+.sources{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:20px;
+  padding-top:18px;
+  border-top:1px solid rgba(240,226,201,.14);
+}
+.src{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:.76rem;
+  font-weight:500;
+  text-decoration:none;
+  padding:7px 13px;
+  border-radius:var(--radius-pill);
+  background:rgba(240,226,201,.09);
+  transition:background .25s var(--ease),color .25s var(--ease),transform .25s var(--ease);
+}
+.src:hover{
+  background:var(--accent);
+  color:var(--espresso);
+  transform:translateY(-2px);
+}
+.src svg{width:11px;height:11px;flex:0 0 auto}
+
+.card.is-out{
+  opacity:0;
+  transform:scale(.94);
+  pointer-events:none;
+}
+.card[hidden]{display:none}
+
+.empty-note{
+  padding:40px 0;
+  opacity:.6;
+  font-size:.95rem;
+}
+
+/* ============================================================
+   Everyday panel
+   ============================================================ */
+.everyday{
+  display:grid;
+  grid-template-columns:.85fr 1.15fr;
+  gap:clamp(20px,3vw,44px);
+  align-items:center;
+}
+.everyday-list{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.everyday-list li{
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  padding:19px 22px;
+  border-radius:var(--radius-md);
+  background:var(--espresso);
+  color:var(--cream);
+  transition:transform .35s var(--ease),background .35s var(--ease),
+             opacity .75s var(--ease-out),translate .75s var(--ease-out);
+}
+.everyday-list li:hover{transform:translateX(7px);background:var(--espresso-2)}
+.everyday-list .n{
+  font-family:"Archivo",sans-serif;
+  font-weight:800;
+  font-size:.72rem;
+  color:var(--accent);
+  padding-top:4px;
+  flex:0 0 auto;
+}
+.everyday-list p{font-size:.95rem;opacity:.82}
+
+.everyday-aside h2{
+  font-size:clamp(1.9rem,4vw,3rem);
+  margin-bottom:18px;
+}
+.everyday-aside > p{opacity:.72;max-width:34ch}
+.tape{
+  margin-top:30px;
+  background:var(--espresso);
+  border-radius:var(--radius-lg);
+  padding:26px;
+  color:var(--cream);
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+.reels{display:flex;gap:14px;flex:0 0 auto}
+.reel{
+  width:44px;height:44px;
+  border-radius:50%;
+  border:6px solid var(--cream);
+  position:relative;
+  animation:spin 3.4s linear infinite;
+}
+.reel::after{
+  content:"";
+  position:absolute;
+  inset:-6px;
+  border-radius:50%;
+  border-top:6px solid var(--tangerine);
+  border-right:6px solid transparent;
+  border-bottom:6px solid transparent;
+  border-left:6px solid transparent;
+}
+.reel:nth-child(2){animation-duration:4.6s}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tape p{font-size:.9rem;opacity:.78;line-height:1.55}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.footer{
+  margin-top:clamp(14px,2.4vw,26px);
+  border-radius:var(--radius-xl);
+  background:var(--espresso);
+  color:var(--cream);
+  padding:clamp(30px,4vw,54px) clamp(20px,3vw,52px);
+}
+.footer-top{
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+  flex-wrap:wrap;
+  align-items:flex-start;
+  padding-bottom:30px;
+  border-bottom:1px solid rgba(240,226,201,.16);
+}
+.footer h2{
+  font-size:clamp(1.6rem,3.4vw,2.6rem);
+  max-width:15ch;
+}
+.footer-note{max-width:44ch;opacity:.7;font-size:.94rem}
+.footer-note a{color:var(--yellow)}
+.footer-bottom{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+  padding-top:24px;
+  font-size:.78rem;
+  opacity:.55;
+}
+.swatches{display:flex;gap:6px;margin-top:22px}
+.swatches i{
+  display:block;
+  width:38px;height:9px;
+  border-radius:var(--radius-pill);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width:1080px){
+  .hero{grid-template-columns:1fr}
+  .hero-media{min-height:300px;order:-1}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid rgba(240,226,201,.16)}
+  .everyday{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  body{font-size:16px}
+  .masthead{gap:16px}
+  .dial-lines,.dial-num{display:none}
+  .grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
+  .stat{border-right:0;border-bottom:1px solid rgba(240,226,201,.16)}
+  .stat:last-child{border-bottom:0}
+  .hero-sub .rule{display:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  .reveal{opacity:1;translate:none}
+  .hero h1 .line > span{transform:none}
+  .hero-sub,.hero-actions{opacity:1}
+  .hero-media img{opacity:1;transform:none}
+}
+
+@media print{
+  body{background:#fff}
+  body::after,.progress{display:none}
+  .card,.footer{background:#fff;color:#000}
+}
+</style>
+
+<noscript><style>
+/* Nothing here depends on JS to be readable. */
+.reveal{opacity:1;translate:none}
+.hero h1 .line > span{transform:none}
+.hero-sub,.hero-actions{opacity:1;animation:none}
+.hero-media img{opacity:1;transform:none;animation:none}
+.progress{display:none}
+</style></noscript>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<a class="skip" href="#list">Skip to the list</a>
+
+<div class="shell">
+
+  <!-- ========== Masthead + hero ========== -->
+  <header class="card-surface">
+    <div class="masthead">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="brand-name">AI Accomplishments<em>for Humanity</em></span>
+      </a>
+
+      <span class="badge">
+        <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        Every claim has a source
+      </span>
+
+      <div class="dial">
+        <span class="dial-lines">no hype<br>no forecasts<br>just receipts</span>
+        <span class="dial-num">Est. 2026</span>
+        <span class="dial-tag">15</span>
+      </div>
+    </div>
+
+    <div class="hero" id="top">
+      <div class="hero-copy">
+        <span class="hero-ghost" aria-hidden="true">A</span>
+        <h1 class="display">
+          <span class="line"><span>Stuff AI</span></span>
+          <span class="line"><span>actually did</span></span>
+        </h1>
+
+        <div class="hero-sub">
+          <span class="rule" aria-hidden="true"></span>
+          <p>Not the pitch-deck version. Fifteen things that have already happened, each one with the paper, the regulator, or the announcement sitting right underneath it. Go check them.</p>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#list">Show me the list <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          <a class="btn btn-ghost" href="#everyday">The stuff you already use</a>
+        </div>
+      </div>
+
+      <div class="hero-media">
+        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&amp;fit=crop&amp;w=1400&amp;q=80"
+             alt="Earth at night from orbit, with city lights spread across the dark side of the planet." width="1400" height="933" fetchpriority="high">
+        <span class="hero-caption">Somewhere down there, most of this is already running</span>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num" data-count="200" data-suffix="M+">200M+</div>
+        <p>protein structures predicted and put online for free</p>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="2" data-suffix="M+">2M+</div>
+        <p>candidate crystal structures for new materials</p>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="80" data-suffix="+">80+</div>
+        <p>countries covered by AI flood forecasting</p>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="40" data-suffix="%">40%</div>
+        <p>drop in cooling energy at Google's data centres</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+  <!-- ========== The list ========== -->
+  <section class="section section-cream" id="list">
+    <div class="section-head reveal">
+      <div>
+        <span class="kicker mono-label">The list</span>
+        <h2 class="display">Fifteen things,<br>fifteen receipts</h2>
+      </div>
+      <p>Sorted roughly by how much of a jaw-drop it was at the time. Every card links out to the primary source, so you never have to take my word for any of it.</p>
+    </div>
+
+    <div class="filters" role="group" aria-label="Filter the list by area">
+      <button class="chip" data-filter="all" aria-pressed="true">Everything <span class="count">15</span></button>
+      <button class="chip" data-filter="medicine" aria-pressed="false">Medicine <span class="count">7</span></button>
+      <button class="chip" data-filter="science" aria-pressed="false">Science <span class="count">2</span></button>
+      <button class="chip" data-filter="planet" aria-pressed="false">Planet <span class="count">4</span></button>
+      <button class="chip" data-filter="tech" aria-pressed="false">Tech <span class="count">2</span></button>
+    </div>
+
+    <div class="grid" id="grid">
+
+      <!-- 1 -->
+      <article class="card reveal" data-cat="science" style="--accent:var(--yellow)">
+        <div class="card-photo">
+          <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&amp;fit=crop&amp;w=800&amp;q=75"
+               alt="Cells glowing magenta and blue under a fluorescence microscope." loading="lazy" decoding="async" width="800" height="450">
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">01</span>
+            <span class="tag">Science</span>
+          </div>
+          <h3>Worked out the shape of 200 million proteins</h3>
+          <p>A protein's shape is what decides what it does. Pinning down a single one used to eat months or years of lab time &mdash; people built whole careers on one structure. AlphaFold predicted nearly every protein we know about and put the entire database online, free, for anyone who wants it.</p>
+          <div class="sources">
+            <a class="src" href="https://www.nature.com/articles/s41586-021-03819-2" target="_blank" rel="noopener noreferrer">Nature<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+            <a class="src" href="https://alphafold.ebi.ac.uk/" target="_blank" rel="noopener noreferrer">AlphaFold DB<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="card reveal" data-cat="medicine" style="--accent:var(--orange)">
+        <div class="card-photo">
+          <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&amp;fit=crop&amp;w=800&amp;q=75"
+               alt="A pipette dispensing bright pink liquid into a tray of sample wells." loading="lazy" decoding="async" width="800" height="450">
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">02</span>
+            <span class="tag">Medicine</span>
+          </div>
+          <h3>Found a new antibiotic for one of the nastiest hospital bugs</h3>
+          <p><em>Acinetobacter baumannii</em> is the sort of infection that turns up in hospitals and shrugs off most of what we throw at it. AI screening pulled out abaucin &mdash; a narrow-spectrum candidate that goes after that one bug instead of flattening everything else living in you.</p>
+          <div class="sources">
+            <a class="src" href="https://www.nature.com/articles/s41589-023-01349-8" target="_blank" rel="noopener noreferrer">Nature Chemical Biology<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="card reveal" data-cat="medicine" style="--accent:var(--tangerine)">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">03</span>
+            <span class="tag">Medicine</span>
+          </div>
+          <h3>Turned up an antibiotic that kills in a way we hadn't seen before</h3>
+          <p>MIT researchers pointed a model at an enormous pile of molecules and it flagged halicin, which works by a mechanism unlike the antibiotics already on the shelf. That last part is the whole point: "unlike the existing ones" is exactly what drug-resistant bacteria haven't learned to handle yet.</p>
+          <div class="sources">
+            <a class="src" href="https://www.cell.com/cell/fulltext/S0092-8674(20)30102-1" target="_blank" rel="noopener noreferrer">Cell<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="card reveal" data-cat="medicine" style="--accent:var(--red)">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">04</span>
+            <span class="tag">Medicine</span>
+          </div>
+          <h3>Read mammograms with fewer misses and fewer false alarms</h3>
+          <p>Reading mammograms is hard, and the two ways of getting it wrong pull against each other &mdash; flag too much and you terrify healthy people, flag too little and you miss cancers. A Google Health system beat expert radiologists on both counts at once, which is the part that surprised people.</p>
+          <div class="sources">
+            <a class="src" href="https://www.nature.com/articles/s41586-019-1799-6" target="_blank" rel="noopener noreferrer">Nature<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="card reveal" data-cat="medicine" style="--accent:var(--yellow)">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">05</span>
+            <span class="tag">Medicine</span>
+          </div>
+          <h3>Screening for the eye disease that quietly blinds diabetics</h3>
+          <p>Diabetic retinopathy doesn't hurt until it's already done damage, so people skip the appointment. The FDA has authorised AI that reads retinal photos and flags it, which means the check can happen at a normal clinic visit instead of a specialist referral nobody gets around to booking.</p>
+          <div class="sources">
+            <a class="src" href="https://www.accessdata.fda.gov/cdrh_docs/pdf18/DEN180001.pdf" target="_blank" rel="noopener noreferrer">FDA authorisation (PDF)<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="card reveal" data-cat="medicine" style="--accent:var(--orange)">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">06</span>
+            <span class="tag">Medicine</span>
+          </div>
+          <h3>Got stroke patients in front of the right team in minutes</h3>
+          <p>With a large-vessel stroke you're losing brain tissue the whole time you sit waiting for someone to look at your scan. Software now spots those scans and pulls the team in within minutes &mdash; and with strokes, minutes are the currency.</p>
+          <div class="sources">
+            <a class="src" href="https://www.viz.ai/" target="_blank" rel="noopener noreferrer">Viz.ai<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7 -->
+      <article class="card reveal" data-cat="medicine" style="--accent:var(--tangerine)">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">07</span>
+            <span class="tag">Medicine</span>
+          </div>
+          <h3>Cut radiotherapy planning from hours down to minutes</h3>
+          <p>Before radiation treatment, somebody has to outline the tumour and every organ near it, slice by careful slice, so the beam hits the right thing and skips everything else. It's painstaking work that used to take hours. AI does the first pass in minutes and the clinician checks it over.</p>
+          <div class="sources">
+            <a class="src" href="https://www.nature.com/articles/s41467-022-34257-x" target="_blank" rel="noopener noreferrer">Nature Communications<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+            <a class="src" href="https://www.nature.com/articles/s41467-026-70863-9" target="_blank" rel="noopener noreferrer">Multicentre trial<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 8 -->
+      <article class="card reveal" data-cat="planet" style="--accent:var(--red)">
+        <div class="card-photo">
+          <img src="https://images.unsplash.com/photo-1516117172878-fd2c41f4a759?auto=format&amp;fit=crop&amp;w=800&amp;q=75"
+               alt="Layers of mountain ridges under a streaked orange and blue sunset sky." loading="lazy" decoding="async" width="800" height="450">
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">08</span>
+            <span class="tag">Planet</span>
+          </div>
+          <h3>Beat the old weather models at their own job</h3>
+          <p>GraphCast forecasts global weather more accurately than many traditional systems, across hundreds of variables. Weather prediction has been a physics-and-supercomputers problem since the 1950s, so this one landed hard with the people who do it for a living.</p>
+          <div class="sources">
+            <a class="src" href="https://www.science.org/doi/10.1126/science.adi2336" target="_blank" rel="noopener noreferrer">Science<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 9 -->
+      <article class="card reveal" data-cat="planet" style="--accent:var(--yellow)">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">09</span>
+            <span class="tag">Planet</span>
+          </div>
+          <h3>Flood warnings in more than 80 countries</h3>
+          <p>Google Research's flood forecasting now covers over 80 countries and reaches millions of people. River gauge networks are expensive and plenty of places don't have one, so a model that works where the sensors aren't is the difference between a warning and no warning at all.</p>
+          <div class="sources">
+            <a class="src" href="https://sites.research.google/gr/floodforecasting/" target="_blank" rel="noopener noreferrer">Google Research<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 10 -->
+      <article class="card reveal" data-cat="tech" style="--accent:var(--orange)">
+        <div class="card-photo">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=800&amp;q=75"
+               alt="Close-up of a circuit board with processors and components in low light." loading="lazy" decoding="async" width="800" height="450">
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">10</span>
+            <span class="tag">Tech</span>
+          </div>
+          <h3>Laid out chip floorplans that would've taken engineers months</h3>
+          <p>Deciding where every block sits on a chip is a maddening puzzle, because moving one thing changes everything else. AI produced floorplans that human engineers would have spent months on &mdash; and those chips go on to run everything else in this list.</p>
+          <div class="sources">
+            <a class="src" href="https://www.nature.com/articles/s41586-021-03544-w" target="_blank" rel="noopener noreferrer">Nature<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 11 -->
+      <article class="card reveal" data-cat="planet" style="--accent:var(--tangerine)">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">11</span>
+            <span class="tag">Planet</span>
+          </div>
+          <h3>Knocked about 40% off data centre cooling</h3>
+          <p>DeepMind's system took over the cooling controls at Google's data centres and cut that energy use by roughly 40%. Same buildings, same servers, considerably less power &mdash; which is a rare thing to be able to say about anything.</p>
+          <div class="sources">
+            <a class="src" href="https://deepmind.google/discover/blog/deepmind-ai-reduces-google-data-centre-cooling-bill-by-40/" target="_blank" rel="noopener noreferrer">DeepMind<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 12 -->
+      <article class="card reveal" data-cat="science" style="--accent:var(--red)">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">12</span>
+            <span class="tag">Science</span>
+          </div>
+          <h3>Put two million new crystal structures on the table</h3>
+          <p>Materials science has always moved at the speed of somebody having a hunch about what to try next. DeepMind's GNoME predicted over two million candidate inorganic crystals in one go. Not all of them will pan out, but that's a very different starting point than a hunch.</p>
+          <div class="sources">
+            <a class="src" href="https://www.nature.com/articles/s41586-023-06735-9" target="_blank" rel="noopener noreferrer">Nature<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 13 -->
+      <article class="card reveal" data-cat="planet" style="--accent:var(--yellow)">
+        <div class="card-photo">
+          <img src="https://images.unsplash.com/photo-1500673922987-e212871fec22?auto=format&amp;fit=crop&amp;w=800&amp;q=75"
+               alt="A misty forest path lit by warm golden light through the trees." loading="lazy" decoding="async" width="800" height="450">
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">13</span>
+            <span class="tag">Planet</span>
+          </div>
+          <h3>Spotted wildfires earlier, from orbit</h3>
+          <p>AI reads satellite imagery to catch fires while they're still small. Anyone who's lived through a fire season knows the entire game is the first hour &mdash; after that you're not fighting the fire so much as following it around.</p>
+          <div class="sources">
+            <a class="src" href="https://blog.google/company-news/outreach-and-initiatives/sustainability/google-ai-wildfire-detection/" target="_blank" rel="noopener noreferrer">Google Blog<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+            <a class="src" href="https://sites.research.google/gr/wildfires/firesat/" target="_blank" rel="noopener noreferrer">FireSat<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 14 -->
+      <article class="card reveal" data-cat="medicine" style="--accent:var(--orange)">
+        <div class="card-photo">
+          <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&amp;fit=crop&amp;w=800&amp;q=75"
+               alt="An anatomical model of a human brain sliced to show its inner structure." loading="lazy" decoding="async" width="800" height="450">
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">14</span>
+            <span class="tag">Medicine</span>
+          </div>
+          <h3>Gave people with paralysis a voice again</h3>
+          <p>Researchers decoded brain signals into speech, close to real time, for people who had lost the ability to talk. Not a menu of canned phrases &mdash; actual sentences, as they try to say them. If you only read one paper off this page, make it this one.</p>
+          <div class="sources">
+            <a class="src" href="https://www.nature.com/articles/s41586-023-06377-x" target="_blank" rel="noopener noreferrer">Nature<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 15 -->
+      <article class="card reveal" data-cat="tech" style="--accent:var(--tangerine)">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">15</span>
+            <span class="tag">Tech</span>
+          </div>
+          <h3>Made translation good enough to actually hand someone your phone</h3>
+          <p>Neural translation went from something you'd screenshot and post for laughs to something you'd genuinely trust in a conversation with a stranger. It's probably the AI accomplishment the most people use, and the one they think about least.</p>
+          <div class="sources">
+            <a class="src" href="https://blog.google/products/translate/" target="_blank" rel="noopener noreferrer">Google Translate<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <p class="empty-note" id="emptyNote" hidden>Nothing in that category. Try another one.</p>
+  </section>
+
+  <!-- ========== Everyday ========== -->
+  <section class="section section-cream" id="everyday">
+    <div class="everyday">
+      <div class="everyday-aside reveal">
+        <span class="kicker mono-label">Already in your pocket</span>
+        <h2 class="display">You use this stuff every day</h2>
+        <p>None of this gets called AI anymore. It just gets called "my email" or "my maps app," which is usually how you can tell something worked.</p>
+        <div class="tape">
+          <div class="reels" aria-hidden="true"><span class="reel"></span><span class="reel"></span></div>
+          <p>Technology stops being impressive at roughly the moment it becomes useful. Then it's just the thing that's always been there.</p>
+        </div>
+      </div>
+
+      <ul class="everyday-list">
+        <li class="reveal" style="--accent:var(--yellow)"><span class="n">01</span><p>Spam filters bin billions of junk emails a day. You never see them, which is the entire job.</p></li>
+        <li class="reveal" style="--accent:var(--orange)"><span class="n">02</span><p>Fraud detection catches a stolen card mid-swipe, while the transaction is still in the air.</p></li>
+        <li class="reveal" style="--accent:var(--tangerine)"><span class="n">03</span><p>Your maps app reroutes you around traffic that hasn't reached you yet.</p></li>
+        <li class="reveal" style="--accent:var(--red)"><span class="n">04</span><p>Captions, live transcripts and image descriptions &mdash; the difference between usable and not, for a lot of people.</p></li>
+        <li class="reveal" style="--accent:var(--yellow)"><span class="n">05</span><p>Radiologists get a second read on scans, on every scan, without waiting for a colleague to be free.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ========== Footer ========== -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="reveal">
+        <h2 class="display">Don't take my word for it</h2>
+        <div class="swatches" aria-hidden="true">
+          <i style="background:var(--yellow)"></i>
+          <i style="background:var(--orange)"></i>
+          <i style="background:var(--tangerine)"></i>
+          <i style="background:var(--red)"></i>
+        </div>
+      </div>
+      <p class="footer-note reveal">Every line on this page comes from the source sitting next to it &mdash; a peer-reviewed paper, a regulator, or the announcement from the group that did the work. Click through and read them. Some of this will age, and a few numbers will be out of date before long. That's fine. It happened.</p>
+    </div>
+    <div class="footer-bottom">
+      <span>AI Accomplishments for Humanity</span>
+      <span>Photography via <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash</a></span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Scroll progress ---------- */
+  var bar = document.getElementById("progress");
+  var ticking = false;
+  function drawProgress() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = max > 0 ? window.scrollY / max : 0;
+    bar.style.transform = "scaleX(" + Math.min(1, Math.max(0, pct)) + ")";
+    ticking = false;
+  }
+  window.addEventListener("scroll", function () {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(drawProgress);
+    }
+  }, { passive: true });
+  drawProgress();
+
+  /* ---------- Count-up on the stat row ---------- */
+  function countUp(el) {
+    var target = parseFloat(el.dataset.count);
+    var suffix = el.dataset.suffix || "";
+    if (reduced) {
+      el.textContent = target + suffix;
+      return;
+    }
+    var duration = 1500;
+    var start = null;
+    el.textContent = "0" + suffix;
+    function step(now) {
+      if (start === null) start = now;
+      var t = Math.min(1, (now - start) / duration);
+      var eased = 1 - Math.pow(1 - t, 3);
+      var value = target * eased;
+      el.textContent = (target < 10 ? value.toFixed(1) : Math.round(value)) + suffix;
+      if (t < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        el.textContent = target + suffix;
+      }
+    }
+    window.requestAnimationFrame(step);
+  }
+
+  /* ---------- Scroll reveal ---------- */
+  var revealTargets = Array.prototype.slice.call(
+    document.querySelectorAll(".reveal, .stat-num[data-count]")
+  );
+
+  function show(el) {
+    el.classList.add("in");
+    if (el.dataset.count) countUp(el);
+  }
+
+  if ("IntersectionObserver" in window) {
+    var observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        obs.unobserve(el);
+
+        // Stagger siblings so a row of cards cascades instead of
+        // all landing at once.
+        var siblings = el.parentElement
+          ? Array.prototype.filter.call(el.parentElement.children, function (n) {
+              return n.classList.contains("reveal");
+            })
+          : [];
+        var index = siblings.indexOf(el);
+        var delay = reduced || index < 0 ? 0 : Math.min(index, 8) * 70;
+
+        if (delay) {
+          window.setTimeout(function () { show(el); }, delay);
+        } else {
+          show(el);
+        }
+      });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
+
+    revealTargets.forEach(function (el) { observer.observe(el); });
+  } else {
+    revealTargets.forEach(show);
+  }
+
+  /* ---------- Category filter ---------- */
+  var chips = document.querySelectorAll(".chip");
+  var cards = Array.prototype.slice.call(document.querySelectorAll("#grid .card"));
+  var emptyNote = document.getElementById("emptyNote");
+
+  chips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      var filter = chip.dataset.filter;
+
+      chips.forEach(function (c) {
+        c.setAttribute("aria-pressed", String(c === chip));
+      });
+
+      var shown = 0;
+      cards.forEach(function (card) {
+        var match = filter === "all" || card.dataset.cat === filter;
+        if (match) shown++;
+
+        if (match) {
+          card.hidden = false;
+          // Next frame, so the browser has laid it out before we fade it in.
+          window.requestAnimationFrame(function () {
+            card.classList.remove("is-out");
+          });
+        } else {
+          card.classList.add("is-out");
+          if (reduced) {
+            card.hidden = true;
+          } else {
+            window.setTimeout(function () {
+              if (card.classList.contains("is-out")) card.hidden = true;
+            }, 280);
+          }
+        }
+      });
+
+      emptyNote.hidden = shown !== 0;
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
